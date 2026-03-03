@@ -13,6 +13,7 @@ export default function PostsPage({ posts, isAdmin, onAdd, onDelete }: NewsPageP
     const [description, setDescription] = useState('')
     const [imageUrl, setImageUrl] = useState('')
     const [saving, setSaving] = useState(false)
+    const [lightbox, setLightbox] = useState('')
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -80,7 +81,8 @@ export default function PostsPage({ posts, isAdmin, onAdd, onDelete }: NewsPageP
                                 <img
                                     src={post.imageUrl}
                                     alt={post.title}
-                                    className="w-full h-48 object-cover"
+                                    onClick={() => setLightbox(post.imageUrl)}
+                                    className="w-full h-48 object-cover cursor-pointer hover:opacity-90 transition"
                                 />
                             )}
                             <div className="p-4">
@@ -104,6 +106,17 @@ export default function PostsPage({ posts, isAdmin, onAdd, onDelete }: NewsPageP
                             </div>
                         </div>
                     ))}
+                </div>
+            )}
+            {lightbox && (
+                <div
+                    onClick={() => setLightbox('')}
+                    className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
+                >
+                    <img
+                        src={lightbox}
+                        className="max-w-full max-h-full rounded-xl object-contain"
+                    />
                 </div>
             )}
         </div>
