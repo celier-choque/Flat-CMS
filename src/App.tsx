@@ -3,7 +3,7 @@ import Header from "./components/Header"
 import Footer from "./components/Footer"
 import NewsPage from "./pages/NewsPage.tsx";
 import PostsPage from "./pages/PostsPage.tsx";
-import {getPosts} from "./services/storage.ts";
+import {getPosts, savePosts} from "./services/storage.ts";
 
 export interface Post {
     id: string
@@ -38,6 +38,17 @@ function App() {
 
     const handleLogout = () => setIsAdmin(false)
 
+    const handleAddPost = async (post: Omit<Post, 'id' | 'createdAt'>) => {
+        const newPost: Post = {
+            ...post,
+            id: crypto.randomUUID(),
+            createdAt: new Date().toISOString(),
+        }
+        const updated = [newPost, ...posts]
+        setPosts(updated)
+        await savePosts(updated)
+    }
+
     return (
         <div className="min-h-screen flex flex-col">
             <Header
@@ -53,6 +64,7 @@ function App() {
                     <PostsPage
                         posts={posts}
                         isAdmin={isAdmin}
+                        onAdd={handleAddPost}
                     />}
                 {page === "news" && <NewsPage />}
             </main>

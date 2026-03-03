@@ -3,23 +3,25 @@ import {useState} from "react";
 
 interface NewsPageProps {
     posts: Post[];
-    isAdmin: boolean
+    isAdmin: boolean;
+    onAdd: (post: Omit<Post, 'id' | 'createdAt'>) => Promise<void>;
 }
 
-export default function PostsPage({ posts, isAdmin }: NewsPageProps) {
+export default function PostsPage({ posts, isAdmin, onAdd }: NewsPageProps) {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [imageUrl, setImageUrl] = useState('')
     const [saving, setSaving] = useState(false)
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-
-        console.log({
-            title,
-            description,
-            imageUrl
-        })
+        if (!title.trim()) return
+        setSaving(true)
+        await onAdd({ title, description, imageUrl, section: 'posts' })
+        setTitle('')
+        setDescription('')
+        setImageUrl('')
+        setSaving(false)
     }
 
 
