@@ -4,6 +4,15 @@ import Footer from "./components/Footer"
 import NewsPage from "./pages/NewsPage.tsx";
 import PostsPage from "./pages/PostsPage.tsx";
 
+export interface Post {
+    id: string
+    title: string
+    description: string
+    imageUrl: string
+    section: 'posts'
+    createdAt: string
+}
+
 const ADMIN_USER = 'admin'
 const ADMIN_PASS = 'admin123'
 
