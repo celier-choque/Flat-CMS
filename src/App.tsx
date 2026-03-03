@@ -49,7 +49,11 @@ function App() {
             />
 
             <main className="flex-grow p-6 text-center">
-                {page === "posts" && <PostsPage posts={posts}/>}
+                {page === "posts" &&
+                    <PostsPage
+                        posts={posts}
+                        isAdmin={isAdmin}
+                    />}
                 {page === "news" && <NewsPage />}
             </main>
 

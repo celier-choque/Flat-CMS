@@ -1,13 +1,71 @@
 import type { Post } from "../App.tsx";
+import {useState} from "react";
 
 interface NewsPageProps {
     posts: Post[];
+    isAdmin: boolean
 }
 
-export default function PostsPage({ posts }: NewsPageProps) {
+export default function PostsPage({ posts, isAdmin }: NewsPageProps) {
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [imageUrl, setImageUrl] = useState('')
+    const [saving, setSaving] = useState(false)
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+
+        console.log({
+            title,
+            description,
+            imageUrl
+        })
+    }
+
+
     return (
         <div className="p-4">
             <h2 className="text-xl font-bold mb-4">Posts</h2>
+
+            {isAdmin && (
+                <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow mb-8 flex flex-col gap-4">
+                    <h3 className="font-semibold">New Post</h3>
+
+                    <input
+                        type="text"
+                        placeholder="Título *"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        className="border border-gray-300 p-2 w-full"
+                        required
+                    />
+
+                    <textarea
+                        placeholder="Descripción"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        rows={3}
+                        className="border border-gray-300 p-2 w-full"
+                    />
+
+                    <input
+                        type="url"
+                        placeholder="URL de imagen (opcional)"
+                        value={imageUrl}
+                        onChange={(e) => setImageUrl(e.target.value)}
+                        className="border border-gray-300 p-2 w-full"
+                    />
+
+                    <button
+                        type="submit"
+                        disabled={saving}
+                        className="bg-blue-500 text-white px-4 py-2"
+                    >
+                        {saving ? 'publishing...' : 'publish'}
+                    </button>
+                </form>
+            )}
+
 
             {posts.length === 0 ? (
                 <p>No posts yet</p>
