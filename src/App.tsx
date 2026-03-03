@@ -1,8 +1,9 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 import NewsPage from "./pages/NewsPage.tsx";
 import PostsPage from "./pages/PostsPage.tsx";
+import {getPosts} from "./services/storage.ts";
 
 export interface Post {
     id: string
@@ -19,6 +20,13 @@ const ADMIN_PASS = 'admin123'
 function App() {
     const [page, setPage] = useState("posts")
     const [isAdmin, setIsAdmin] = useState(false)
+    const [posts, setPosts] = useState<Post[]>([])
+
+    useEffect(() => {
+        getPosts().then((data) => {
+            setPosts(data)
+        })
+    }, [])
 
     const handleLogin = (username: string, password: string): boolean => {
         if (username === ADMIN_USER && password === ADMIN_PASS) {
@@ -41,7 +49,7 @@ function App() {
             />
 
             <main className="flex-grow p-6 text-center">
-                {page === "posts" && <PostsPage />}
+                {page === "posts" && <PostsPage posts={posts}/>}
                 {page === "news" && <NewsPage />}
             </main>
 
