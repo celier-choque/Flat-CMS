@@ -76,14 +76,14 @@ const Header = ({page, setPage, onLogout, onLogin, isAdmin}: HeaderProps) => {
                                         <form onSubmit={handleLogin} className="flex flex-col gap-3">
                                             <input
                                                 type="text"
-                                                placeholder="Usuario"
+                                                placeholder="username"
                                                 value={username}
                                                 onChange={(e) => setUsername(e.target.value)}
                                                 className="border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
                                             />
                                             <input
                                                 type="password"
-                                                placeholder="Contraseña"
+                                                placeholder="password"
                                                 value={password}
                                                 onChange={(e) => setPassword(e.target.value)}
                                                 className="border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
