@@ -12,19 +12,24 @@ export default function PostsPage({ posts }: NewsPageProps) {
             {posts.length === 0 ? (
                 <p>No posts yet</p>
             ) : (
-                <div className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {posts.map((post) => (
-                        <div
-                            key={post.id}
-                            className="border rounded-lg p-4 shadow-sm"
-                        >
-                            <h3 className="font-semibold text-lg">
-                                {post.title}
-                            </h3>
-
-                            <p className="text-gray-600 mt-2">
-                                {post.description}
-                            </p>
+                        <div key={post.id} className="bg-white rounded-xl shadow overflow-hidden">
+                            {post.imageUrl && (
+                                <img
+                                    src={post.imageUrl}
+                                    alt={post.title}
+                                    className="w-full h-48 object-cover"
+                                />
+                            )}
+                            <div>
+                                <h3 className="font-semibold text-lg">
+                                    {post.title}
+                                </h3>
+                                <p className="text-gray-600 mt-2">
+                                    {post.description}
+                                </p>
+                            </div>
                         </div>
                     ))}
                 </div>
