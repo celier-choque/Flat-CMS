@@ -70,9 +70,9 @@ const Header = ({page, setPage, onLogout, onLogin, isAdmin}: HeaderProps) => {
 
                                 {showForm && (
                                     <div
-                                        className="absolute mt-2 bg-white text-gray-800 rounded-xl shadow-lg p-6 w-80 z-50
-                                            left-1/2 -translate-x-1/2
-                                            sm:left-auto sm:translate-x-0 sm:right-0">
+                                        className="absolute mt-2 bg-white text-gray-800 rounded-xl shadow-lg p-6 w-screen sm:w-80 z-50
+                                                    left-1/2 -translate-x-1/2
+                                                    sm:left-auto sm:translate-x-0 sm:right-0">
                                         <form onSubmit={handleLogin} className="flex flex-col gap-3">
                                             <input
                                                 type="text"

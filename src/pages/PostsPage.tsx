@@ -83,12 +83,15 @@ export default function PostsPage({ posts, isAdmin, onAdd, onDelete }: NewsPageP
                                     className="w-full h-48 object-cover"
                                 />
                             )}
-                            <div>
+                            <div className="p-4">
                                 <h3 className="font-semibold text-lg">
                                     {post.title}
                                 </h3>
                                 <p className="text-gray-600 mt-2">
                                     {post.description}
+                                </p>
+                                <p className="text-xs text-gray-400 mt-2">
+                                    {new Date(post.createdAt).toLocaleDateString()}
                                 </p>
                                 {isAdmin && (
                                     <button
