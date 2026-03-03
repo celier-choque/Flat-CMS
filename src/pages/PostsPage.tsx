@@ -5,9 +5,10 @@ interface NewsPageProps {
     posts: Post[];
     isAdmin: boolean;
     onAdd: (post: Omit<Post, 'id' | 'createdAt'>) => Promise<void>;
+    onDelete: (id: string) => Promise<void>;
 }
 
-export default function PostsPage({ posts, isAdmin, onAdd }: NewsPageProps) {
+export default function PostsPage({ posts, isAdmin, onAdd, onDelete }: NewsPageProps) {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [imageUrl, setImageUrl] = useState('')
@@ -35,7 +36,7 @@ export default function PostsPage({ posts, isAdmin, onAdd }: NewsPageProps) {
 
                     <input
                         type="text"
-                        placeholder="Título *"
+                        placeholder="Title *"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         className="border border-gray-300 p-2 w-full"
@@ -43,7 +44,7 @@ export default function PostsPage({ posts, isAdmin, onAdd }: NewsPageProps) {
                     />
 
                     <textarea
-                        placeholder="Descripción"
+                        placeholder="Description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         rows={3}
@@ -52,7 +53,7 @@ export default function PostsPage({ posts, isAdmin, onAdd }: NewsPageProps) {
 
                     <input
                         type="url"
-                        placeholder="URL de imagen (opcional)"
+                        placeholder="image URL (optional)"
                         value={imageUrl}
                         onChange={(e) => setImageUrl(e.target.value)}
                         className="border border-gray-300 p-2 w-full"
@@ -89,6 +90,14 @@ export default function PostsPage({ posts, isAdmin, onAdd }: NewsPageProps) {
                                 <p className="text-gray-600 mt-2">
                                     {post.description}
                                 </p>
+                                {isAdmin && (
+                                    <button
+                                        onClick={() => onDelete(post.id)}
+                                        className="mt-3 text-red-500 text-sm hover:underline"
+                                    >
+                                        delete
+                                    </button>
+                                )}
                             </div>
                         </div>
                     ))}

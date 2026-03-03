@@ -49,6 +49,12 @@ function App() {
         await savePosts(updated)
     }
 
+    const handleDeletePost = async (id: string) => {
+        const updated = posts.filter((p) => p.id !== id)
+        setPosts(updated)
+        await savePosts(updated)
+    }
+
     return (
         <div className="min-h-screen flex flex-col">
             <Header
@@ -65,6 +71,7 @@ function App() {
                         posts={posts}
                         isAdmin={isAdmin}
                         onAdd={handleAddPost}
+                        onDelete={handleDeletePost}
                     />}
                 {page === "news" && <NewsPage />}
             </main>
